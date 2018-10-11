@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="../../../css/mui.min.css" rel="stylesheet" />
+	<link href="../../../css/style.css" rel="stylesheet" />
+	<style type="text/css">
+		.footer{
+			position: absolute;
+			bottom:0;
+			line-height: 1.5;
+		}
+		.clearfix:after{
+			display: block;
+			clear: both;
+			content:"";
+		}
+		.select{
+			z-index: 998;
+			position: absolute;
+			left: 10px;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			border:1px solid #CDE2F3;
+			background: #E9F6FF;
+			height: 22px;
+			display: flex;
+		    justify-content: flex-start;
+		    align-items: center;
+		}
+		.del{
+			font-size: 20px;
+			padding-left:10px ;
+			
+		}
+		.btn{
+			display: block;
+			background: none;
+			border: none;
+			color: #D61D1D;
+			position: absolute;
+			right: 10px;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+		.btn:disabled{ 
+		color: #ACACAC;      
+		opacity:1;
+		-webkit-text-fill-color:#666; 
+	    -webkit-opacity:1;   
+        } 
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav news_header">
+		<a id="headerback"  class="mui-action-back mui-icon mui-icon-back mui-pull-left">返回</a>
+		<h1 id="title" class="mui-title">XXX党委</h1>
+	</header>
+	<div class="mui-content">
+		<!--不可选党委-->
+		<div class="disablechoose" id="disablechoose" style="margin-top: 15px;">
+			<div id="generalone" class="mui-input-row  mui-left mui-table-view generalchoose" style="margin-top: 20px;">
+			<label id="chooseone" class="titlechoose">xxx1党委</label>
+			</div>
+			<div id="generaltwo" class="mui-input-row  mui-left mui-table-view generalchoose" >
+			<label id="choosetwo" class="titlechoose">xxx2党委</label>
+			</div>
+			<div id="generalthree" class="mui-input-row  mui-left mui-table-view generalchoose" >
+			<label id="choosethree" class="titlechoose">xxx3党委</label>
+			</div>
+		</div>
+		<!--可选择党委-->
+		<div id="ablechoose" class="ablechoose" style="display:none;margin-top: 15px;">
+			 <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">xxx1党委</label>
+			  <input name="checkbox4" value="Item 1" type="checkbox" class="selectone">
+			 </div>
+			  <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">xxx2党委</label>
+			  <input name="checkbox5" value="Item 1" type="checkbox" class="selectone">
+			 </div>
+			  <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">xxx3党委</label>
+			  <input name="checkbox6" value="Item 1" type="checkbox" class="selectone">
+			 </div>
+		</div>	
+			<!--党总支-->
+		<div class="generalBranch" id="zongchoose" style="display:none;margin-top: 15px;">
+			 <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">党总支4</label>
+			  <input name="checkbox4" value="Item 1" type="checkbox" class="selectone">
+			  <a class="mui-navigate-right backshow" ></a>
+			 </div>
+			  <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">党总支5</label>
+			  <input name="checkbox5" value="Item 1" type="checkbox" class="selectone">
+			  <a class="mui-navigate-right backshow"></a>
+			 </div>
+			  <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">党总支6</label>
+			  <input name="checkbox6" value="Item 1" type="checkbox" class="selectone">
+			  <a class="mui-navigate-right backshow"></a>
+			 </div>
+		</div>
+		<!--党支部-->
+		<div class="generalBranch" id="partchoose" style="display:none;margin-top: 15px;">
+			 <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">党支部7</label>
+			  <input name="checkbox4" value="Item 1" type="checkbox" class="selectone">
+			 </div>
+			  <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">党支部8</label>
+			  <input name="checkbox5" value="Item 1" type="checkbox" class="selectone">
+			 </div>
+			  <div class="mui-input-row mui-checkbox mui-left mui-table-view dangzong ">
+			  <label class="zongtitle">党支部9</label>
+			  <input name="checkbox6" value="Item 1" type="checkbox" class="selectone">
+			 </div>
+		</div>
+	<!--底部-->
+	<div class="footer mui-bar clearfix">
+		<div class="selectleft" style="display: none">
+			<div class="select" >
+			<div class="selectdisplay "></div>
+			<div class="del"></div>
+			</div>
+		</div>
+		<button type="button" class="btn" disabled="disabled">确认</button>
+	</div>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/common.js"></script>
+<script src="../../../js/mui.zoom.js"></script>
+<script type="text/javascript">
+    mui.init()
+    //不能选党委
+    var generalchooses = $(".generalchoose");
+    var disablechoose = $("#disablechoose");
+    var zongchooses = $("#zongchoose");
+    var titlechooses = $(".titlechoose");
+    var title = $("#title")
+    var backnum = 0
+    generalchooses.each(function(i,item){ 
+     item.addEventListener('tap', function() {
+         var titleitem =$(titlechooses[i]).text();
+     	 disablechoose.css('display','none')
+	     title.text(titleitem)	 
+	    zongchooses.css('display','block')
+	     backnum++
+	    }) 
+    })
+    //可选党委和党总支和党支部
+        var selectleft = $(".selectleft")
+	    var selectdisplay = $(".selectdisplay");
+	    var dangzong = $(".dangzong");
+	    var backshow = $(".backshow")
+	    $(".dangzong input[type=checkbox]").each(function(index,item){
+            var btn = $(".btn")
+            var del = $(".del")
+            var selecttitle =$(dangzong[index]).text();
+	    	item.addEventListener('click',function(){
+	    	var judgechecked = $(this).prop('checked')//判断是否有选中的值将多选变单选
+	    	if(judgechecked) {
+	    		backshow.css("display","none")
+	    	    var nochecked = !judgechecked
+                $(":checkbox").prop("checked",nochecked);
+                $(this).prop("checked",judgechecked);
+                var checkitem =$(this)
+                btn.attr("disabled",false)
+                selectleft.css("display","block")
+                selectdisplay.text(selecttitle)
+                del.text("X")
+                //确认部门
+                btn.on('tap',function(event){
+					//获得事件参数
+					sectionname = selecttitle;
+					var wvB=plus.webview.currentWebview();  //获取当前窗口的WebviewObject对象
+				    var wvA=wvB.opener();		 			//获取当前窗口的创建者
+					//触发详情页面的newsId事件
+					mui.fire(wvA,'toBumen',{
+						sectionname:sectionname
+					});
+					wvB.close();   
+				});
+                //删除选中
+                del.click( function () { 
+                judgechecke=!judgechecked	
+                 $(":checkbox").prop("checked",judgechecke)
+                 backshow.css("display","block")
+                btn.attr("disabled",true)
+                selectleft.css("display","none")
+                selectdisplay.text("")
+                del.text("")
+                })
+            }
+            else{
+            	backshow.css("display","block")
+                btn.attr("disabled",true)
+                selectleft.css("display","none")
+                selectdisplay.text("")
+                del.text("")
+			}
+       });
+      });
+         var partchoose =$("#partchoose")
+         var zongtitles =$(".zongtitle")
+         backshow.each(function(i,item){ 
+         item.addEventListener('tap', function() {
+         var titleitem =$(zongtitles[i]).text();
+     	 zongchooses.css('display','none')
+	     title.text(titleitem)	 
+	     partchoose.css('display','block')
+	     backnum++
+	     console.log(backnum)
+	    }) 
+    })
+     //返回按钮事件
+      
+    
+</script>
+</body>
+
+</html>

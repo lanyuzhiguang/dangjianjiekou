@@ -1,0 +1,538 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../iconfont/icon/iconfont.css" />
+		<style type="text/css">
+			.joinpeople-content {
+				background: #EFEFF4;
+			}
+			
+			.header-seach {
+				padding: 10px;
+				display: flex;
+				justify-content:space-between;
+				align-items: center;
+			}
+			
+			input[type=search] {
+				background: #fff;
+				border: 1px solid #DDDDDD;
+			}
+			
+			.search-bottom {
+				margin-bottom: -15px;
+				flex: 100%;
+			}
+			.check-name-section {
+				font-size: 12px;
+				color: #DDDDDD;
+				padding-bottom: 5px;
+				border-bottom: 0.5px solid #DDDDDD;
+			}
+			
+			.checkpeople {
+				margin-top: 10px;
+			}
+			
+			.checkpeople-item {
+				padding-top: 6px;
+				background: #FFFFFF
+			}
+			
+			.mui-checkbox {}
+			
+			#pagetwo {
+				background-color: #FFFFFF;
+			}
+			
+			.footer {
+				position: fixed;
+				bottom: 0;
+				line-height: 1.5;
+				display: flex;
+				align-items: center;
+			}
+			
+			.clearfix:after {
+				display: block;
+				clear: both;
+				content: "";
+			}
+			
+			.selectleft {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				width: 75%;
+				overflow-x: auto;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.select {
+				z-index: 998;
+				margin-left: 20px;
+				border: 1px solid #CDE2F3;
+				background: #E9F6FF;
+				height: 22px;
+				display: flex;
+				justify-content: flex-start;
+				flex-wrap: nowrap;
+				align-items: center;
+			}
+			
+			.del {
+				font-size: 20px;
+				padding-left: 10px;
+			}
+			
+			.btn {
+				display: block;
+				background: none;
+				border: none;
+				color: #D61D1D;
+				position: absolute;
+				right: 10px;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+			}
+			
+			.btn:disabled {
+				color: #ACACAC;
+				opacity: 1;
+				-webkit-text-fill-color: #666;
+				-webkit-opacity: 1;
+			}
+			
+			.mui-navigate-right::after,
+			.mui-push-left::after,
+			.mui-push-right::after {
+				font-size: 1.875rem;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before,
+			.mui-radio input[type=radio]:checked:before {
+				color: #D61D1D;
+			}
+			.mui-checkbox input[type=checkbox]:before,
+			.mui-radio input[type=radio]:before {
+				color: #D61D1D;
+			}
+			
+			.mui-checkbox input[type=checkbox][disabled]:before,
+			.mui-radio input[type=radio][disabled]:before {
+				color: #AAAAAA;
+			}
+			.mui-checkbox.mui-left label,
+			.mui-radio.mui-left label {
+				padding-right: 2rem;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 50%;
+				bottom: 50%;
+				margin: auto 0;
+			}
+			.checkentire {
+				position: relative;
+				z-index: 20;
+			}
+			.allpeople{
+				color: #D61D1D;
+			}
+			.icon-fenpeiqunzhong{
+				color: #30A9FF;
+			}
+			.secbumen{
+				width:90%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				
+			}
+			.ppagenext{
+				display:flex; 
+				justify-content: space-between;
+				height: 2.5rem;
+				align-items: center;
+				padding: 0.705rem;
+				padding-left: 1rem;
+				background-color: #FFFFFF;
+				width:100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.icon-fanhui1{
+				font-size: 1.875rem;
+				color: #E9E9E9;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">参加人员</h1>
+			<div class="mui-pull-right checkentire">全选</div>
+		</header>
+		<div class="mui-content joinpeople-content" style="margin-bottom: 2.8rem;">
+			<div class="header-seach">
+				<div class="mui-input-row mui-search search-bottom">
+					<input type="search" class="mui-input-clear" placeholder="搜索" id="search">
+				</div>
+				<span class="allpeople" style="display: none;">人员</span>
+			</div>
+			<div id="pageone" class="choosepeo">
+				<div class="ppagenext">
+					<div class="secbumen">
+						<span class="iconfont icon-fenpeiqunzhong jiantou"></span>
+						<span id="section" class="sectionbumen">不不不不不不不不不不不不不不不不不不不把把把把把把把v</span>
+					</div>		
+				<span class="iconfont icon-fanhui1 pagenext"></span>
+				</div>
+				<div class="checkpeople checkpeoplelist"></div>
+			</div>
+			<div id="pagetwo" style="display: none;" class="choosepeo">
+				<div class="mui-input-row mui-checkbox mui-left mui-table-view dangchoose ">
+					<label class="zongtitle">党支部4</label>
+					<input name="checkbox4" value="Item 1" type="checkbox" class="selectone">
+					<a class="mui-navigate-right pagenext"></a>
+				</div>
+				<div class="mui-input-row mui-checkbox mui-left mui-table-view dangchoose ">
+					<label class="zongtitle">党支部5</label>
+					<input name="checkbox5" value="Item 1" type="checkbox" class="selectone">
+					<a class="mui-navigate-right pagenext"></a>
+				</div>
+				<div class="mui-input-row mui-checkbox mui-left mui-table-view dangchoose ">
+					<label class="zongtitle">党支部6</label>
+					<input name="checkbox6" value="Item 1" type="checkbox" class="selectone">
+					<a class="mui-navigate-right pagenext"></a>
+				</div>
+			</div>
+		</div>
+		<!--底部-->
+		<div class="footer mui-bar clearfix">
+			<div class="selectleft">
+				<div class="select" style="display: none;">
+					<div class="selectdisplay"></div>
+					<div class="del"></div>
+				</div>
+			</div>
+			<button type="button" class="btn" disabled="disabled">确认(<span id="checkpeoplenum"></span>)</button>
+		</div>
+		<!--接口人-->
+		<div class="checkpeople-item peopleitem">
+			<div class="mui-checkbox mui-left">
+				<label>
+		        <div class="checkname"></div>
+		        <div class="check-name-section bumenname"></div>
+		        </label>
+				<input name="checkbox1" value="张三" type="checkbox" class="namexuan">
+			</div>
+		</div>
+		<script src="../../../js/jquery.min.js"></script>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/common.js"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript">
+			var bumen = {},
+				user = {},
+				tbumen = {};
+			var selectArr = [];
+			var pagepeoplearr = [];
+			mui.init()
+			mui.plusReady(function() {
+				var peopleitem = $(".peopleitem");
+				 peopleitem.remove()
+				var peoplesectionid = osg.param("peoplesectionid");
+				var peoplesection = osg.param("peoplesection");
+				$("#section").text($.trim(peoplesection))
+				//接口
+				osg.ajax("/app/conference/tenant/queryBUbyId", {
+					forbumenId: peoplesectionid
+				}, function(data) {
+					var sectionpeoplearr = [],
+					bumen = data.data.bumen;
+					user = data.data.user;
+					tbumen = data.data.url;
+					var f = findp(bumen, peoplesectionid)
+					if(f) {
+						f.push(data.data.url);
+					} else {
+						f = [];
+						f.push(data.data.url);
+					}
+				    pagepeoplearr = findPre(f, user);
+					  all(pagepeoplearr)	
+				})
+                  //搜索
+                  $("#search").bind("search",function(){
+                  	 $(".allpeople").css("display","block")
+                  	 $(".search-bottom").css("flex","80%")
+                  	$(".checkentire").css("display","none")
+                  	 $('#search').blur();
+                  	var searchArr = [];
+                  	var searchname = $.trim($("#search").val())
+                  	if (searchname) {
+                  		$(".checkpeoplelist").html("")
+                  		$(pagepeoplearr).each(function(){
+                  		var searchobjiect = {};
+    					searchobjiect.name = this.name;
+    					searchobjiect.bumenName = this.bumenName;
+						searchobjiect.myid = this._id;
+						 var havenum = (searchobjiect.name).indexOf(searchname);
+						if (havenum==-1) {
+							}
+						else{
+							searchArr.push(searchobjiect)
+						}
+						})
+                  		$(searchArr).each(function(){
+                  			var item = peopleitem.clone()
+                  			var searchname = this.name;
+	    					var bumenName = this.bumenName;
+							var myid = this.myid;
+							var inputor =indexOfId(selectArr,myid)
+							item.addClass(myid);
+							item.find(".checkname").html(searchname);
+							item.find(".namexuan").attr("itemid", myid);
+							item.find(".namexuan").prop("checked", inputor);
+							item.find(".namexuan").val($.trim(searchname));
+							item.find(".bumenname").html(bumenName);
+							$(".checkpeoplelist").append(item);
+							
+                  		})             		
+                  	        changeinput()
+							orallchecked()
+                  	} 	
+                    $(".allpeople")[0].addEventListener("tap",function(){
+                    	$(".checkpeoplelist").html("")
+                    	 $(".allpeople").css("display","none")
+//	                  	 $(".search-bottom").css("flex","80%")
+	                  	 $(".checkentire").css("display","block")
+	                  	 all(pagepeoplearr)
+                    })
+                  })
+                  //搜索end
+                  //确定
+					var btn = $(".btn");
+					btn.off("tap").on('tap', function(event) {
+						//获得事件参数
+						var okname = selectArr[0].name 
+						joinpeople = okname + selectArr.length
+						console.log(joinpeople)
+						var wvB = plus.webview.currentWebview(); //获取当前窗口的WebviewObject对象
+						var wvA = wvB.opener(); //获取当前窗口的创建者
+						//触发详情页面的newsId事件
+						mui.fire(wvA, 'toBumen', {
+							joinpeople: joinpeople
+						});
+						wvB.close();
+					});	
+					//确定END
+					//下一步
+					var pagenext = $(".pagenext")
+					var pageone = $("#pageone")
+					var pagetwo = $("#pagetwo")
+					alert(peoplesectionid)
+					//bumen出错
+					if (bumen[peoplesectionid]) {
+						$(".pagenext").remove();
+					}
+					pagenext[0].addEventListener('tap', function() {
+						pageone.css("display", "none")
+						pagetwo.css("display", "block")
+						$(".checkentire").css("display", "block")
+						pagethree.css("display", "none")
+						console.log("aaa")
+					})
+				//接口函数
+				function orallchecked (){
+					//全选和取消全选start
+					var allor = $(".checkpeoplelist input[type='checkbox']:checked").length == $(".checkpeoplelist input[type='checkbox']").length
+					//全选和取消全选input改变
+					$(".checkpeoplelist input[type=checkbox]").each(function(i, orone) {
+						orone.addEventListener('click', function() {
+							var allor = $(".checkpeoplelist input[type='checkbox']:checked").length == $(".checkpeoplelist input[type='checkbox']").length
+							if(allor) {
+								$(".checkentire").text("取消全选")
+							} else {
+								$(".checkentire").text("全选")
+							}
+						})
+					})
+					//全选和取消全选input改变end
+					//全选和取消全选的按钮改变
+					$(".checkentire")[0].addEventListener('tap', function() {
+						var allor = $(".checkpeoplelist input[type='checkbox']:checked").length == $(".checkpeoplelist input[type='checkbox']").length
+						if(!allor) {
+							$(".checkpeoplelist input[type=checkbox]").prop("checked", true);
+							$(".checkentire").text("取消全选")
+							allor = !allor
+							$(".selectleft").html("")
+							$(".namexuan").each(function(index, item) {
+								var checkobject = {};
+								checkobject.id = $(item).attr("itemid");
+								checkobject.name = $(item).val();
+								var bl = true;
+								for(var i = 0; i < selectArr.length; i++) {
+									if(selectArr[i].id == checkobject.id) {
+										bl = false;
+									}
+								}
+								if(bl) {
+									selectArr.push(checkobject);
+								}
+								$(".btn").attr("disabled", false)
+								var str = `<div class="selectdisplay" >${checkobject.name}</div>`
+								var strr = `<div class="del">X</div>`
+								let sss = `<div class="select" id="${checkobject.id}">${str+strr}</div>`
+								let template = `<div class="select" >${str}</div>`
+								$('.selectleft').append(sss)
+								delX()
+							})
+							$("#checkpeoplenum").text(selectArr.length)
+						} 
+						else {
+							$(".checkpeoplelist input[type=checkbox]").prop("checked", false);
+							$(".namexuan").each(function(index, item) {
+								var nocheckobject = {};
+								nocheckobject.id = $(item).attr("itemid");
+								selectArr = removeObj(selectArr, nocheckobject);
+								$("#" + nocheckobject.id).remove()
+							})
+							$(".checkentire").text("全选")
+							$("#checkpeoplenum").text(selectArr.length)
+						}
+
+					})
+				  //全选和取消全选的按钮改变end
+				  //全选和取消全选END
+				}
+				function delX() {
+					var namexuan = $(".namexuan")
+					var pagecheck = $(".checkpeople input[type=checkbox]")
+					var del = $(".del")
+					$(".del").each(function(index, delone) {
+						$(delone).off('tap').on("tap", function() {
+							$(".checkentire").text("全选")
+							var id = $(this).parent().attr("id");
+							$("#" + id).remove();
+							$("." + id).find(".namexuan").prop("checked", false)
+							var nocheckobject = {};
+							nocheckobject.id = id;
+							selectArr = removeObj(selectArr, nocheckobject);
+							$("#checkpeoplenum").text(selectArr.length)
+
+						})
+					})
+				}
+                    //选择人员函数
+					function changeinput() {
+						$(() => {
+							$("[name='checkbox1']").change(function() {
+								if(this.checked) {
+									var checkobject = {};
+									checkobject.name = $(this).val();
+									checkobject.id = $(this).attr("itemid")
+									selectArr.push(checkobject)
+									$(".btn").attr("disabled", false)
+									var str = `<div class="selectdisplay" >${checkobject.name}</div>`
+									var strr = `<div class="del">X</div>`
+									let sss = `<div class="select" id="${checkobject.id}">${str+strr}</div>`
+									let template = `<div class="select" >${str}</div>`
+									$('.selectleft').append(sss)
+								} else {
+									var nocheckobject = {};
+									nocheckobject.name = $(this).val();
+									nocheckobject.id = $(this).attr("itemid")
+									selectArr = removeObj(selectArr, nocheckobject);
+									$("#" + nocheckobject.id).remove()
+								}
+								$("#checkpeoplenum").text(selectArr.length)
+								delX()
+								//  删除选中
+							})
+						//BBBBBBBBB
+						})
+					}
+					//选择人员end
+					//部门
+				function findp(bumen, bid) {
+					if(bumen[bid]) {
+						var bumens = bumen[bid];
+						for(var b in bumen[bid]) {
+							var c = findp(bumen, b._id);
+							if(c) {
+								bumens.push(c);
+							}
+						}
+						return bumens;
+					}
+					return null;
+				}
+                    //人
+				function findPre(bumens, user) {
+					var users = [];
+					for(var i = 0; i < bumens.length; i++) {
+						var b = bumens[i];
+						if(user[b._id]) {
+							var us = user[b._id];
+							for(var j = 0; j < us.length; j++) {
+								us[j].bumenName = b.name;
+								users.push(us[j]);
+							}
+						}
+					}
+					return users;
+				}
+                //数组去重
+				function removeObj(arrs, delitem) {
+					var bs = [];
+					for(var i = 0; i < arrs.length; i++) {
+						if(arrs[i].id != delitem.id) {
+							bs.push(arrs[i]);
+						}
+					}
+					return bs;
+				}
+				function indexOfId(arrs, item) {
+					for(var i = 0; i < arrs.length; i++) {
+						if(arrs[i].id == item) {
+							return true;
+						}
+					}
+					return false;
+				}
+			    function all (users){
+					$(users).each(function() {
+						var item = peopleitem.clone()
+						var bumenName = this.bumenName;
+						var name = this.name;
+						var myid = this._id;
+						var inputor =indexOfId(selectArr,myid)
+						item.find(".namexuan").prop("checked", inputor);
+						item.addClass(myid);
+						item.find(".checkname").html(name);
+						item.find(".namexuan").attr("itemid", myid);
+						item.find(".namexuan").val($.trim(name));
+						item.find(".bumenname").html(bumenName);
+						$(".checkpeoplelist").append(item);
+					})
+					changeinput()
+					orallchecked()
+			    }
+			})
+			
+		</script>
+	</body>
+
+</html>
