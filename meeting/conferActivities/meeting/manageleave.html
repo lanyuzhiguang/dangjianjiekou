@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>标题</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/style.css">
+		<link rel="stylesheet" href="../../../css/mui.previewimage.css">
+		<link href="../../../iconfont/logo/iconfont.css" rel="stylesheet" />
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../../../css/app.css" />-->
+	   <style>
+		    .mui-slider-indicator.mui-segmented-control{
+				background-color: white;
+			}
+			.noread-title{
+				display: flex;
+				justify-content: space-between;
+				padding: 0.588rem;
+			}
+			.title-right{
+				color: #169BD5;
+			}
+			.people-img{
+				flex: 20%;
+			}
+			.people-img >img{
+			width:2.82rem!important;
+	        height: 2.82rem!important;
+	        border-radius: 50%;
+			}
+			.noread-content-item{
+				padding:0.588rem 0.588rem;
+				display: flex;
+				justify-content: flex-start;
+			}
+			.people-content{
+				flex: 80%;
+				/*padding-left:0.588rem ;*/
+				display: flex;
+				flex-direction: column;
+			}
+			.No-approval{
+				border-top: 2px solid #D7D7D7;
+			}
+			.people-content-line{
+			border-bottom: 1px solid #E4E4E4;	
+			}
+			.reade-content{
+				flex: 80%;
+				display: flex;
+				justify-content: space-between;
+				border-bottom: 1px solid #E4E4E4;
+			}
+			.leaveend{
+				text-align: center;
+				line-height: 1.764rem;
+				height: 1.764rem;
+				width: 4.705rem;
+				border: 1px solid #9C9C9C;
+				border-radius:50%;
+				font-size: 0.705rem;
+			}
+			#sliderSegmentedControl{
+				position: relative;
+				z-index: 998;
+			}
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted ~ .mui-slider-group .mui-slider-item{
+				border:0px;
+			}
+			.twopeople-content{
+				display: flex;
+				flex-direction: column;
+			}
+		</style>
+		
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">请假管理</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider  mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-negative">
+					<a class="mui-control-item mui-active" href="#item1mobile">待审批(<span class="noreadnum"></span>)</a>
+					<a class="mui-control-item" href="#item2mobile">已通过(<span class="readnum"></span>)</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div class="No-approval mui-scroll">
+					<div class="noread-content noreadlist"></div>
+					</div>	
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+					<div class="No-approval mui-scroll">
+					<div class="noread-content readlist"></div>
+					</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--item-->
+		<div class="noread-content-item noreaditem pitem" style="display: none;">
+			<div class="people-img"><img src="" class="avatar" /></div>
+			<div class="people-content people-content-line">
+				<div class="people-name pname"></div>
+				<div class="people-section psection" style="color: #A3A3A3;">支部名称支部名称支部名称支</div>
+			</div>
+		</div>	
+		<!--item2-->
+		<div class="noread-content-item noreaditem twoitem" style="display: none;">
+			<div class="people-img">
+				<img src="" class="avatar"/>
+			</div>
+				<div class="reade-content">
+					<div class="twopeople-content">
+						<div class="people-name pname"></div>
+						<div class="people-section psection" style="color: #A3A3A3;"></div>
+					</div>
+					<div class="leaveend">通过</div>
+				</div>
+			</div>
+	<script src="../../../js/jquery.min.js"></script>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/common.js"></script>
+	<script src="../../../js/mui.pullToRefresh.js"></script>
+	<script src="../../../js/mui.pullToRefresh.material.js"></script>
+	<script src="../../../js/mui.zoom.js"></script>
+	<script src="../../../js/mui.previewimage.js"></script>
+	<script>
+		mui.init();
+		mui.plusReady(function() {
+			var pitem = $(".pitem");
+			var twoitem = $(".twoitem")
+			var meetid = osg.param("meetid");
+			
+			
+				//分页1
+				//上拉加载下拉刷新
+	 	page1 = 0;
+			ptr1 = mui('#item1mobile .mui-scroll').pullToRefresh({
+				down: {
+					callback: function() {
+						$("#item1mobile .noreadlist").html('');
+						var self = this;
+						page1 = 1;
+						findPage1(1, {
+							'self': self
+						});
+						self.endPullDownToRefresh();
+						self.refresh(true);
+					}
+				},
+				up: {
+					auto: true, //可选,默认false.自动上拉加载一次
+					callback: function() {
+						var self = this;
+						page1++;
+						findPage1(page1, {
+							'self': self
+						});
+					}
+				}
+			});
+	 	//上拉加载下拉刷新上拉加载下拉刷新end
+				function findPage1(page,parme){
+				if (page<=1) {
+				$("#item1mobile .noreadlist").html('');	
+				}
+				osg.ajax("/app/conference/detail/queryByConfer",{
+					"conference._id": meetid,
+					"page": page,
+					"in:state|array-integer":6
+				},function(data){
+					var arr = data.data.data;
+					$(".noreadnum").text(arr.length);
+					if(arr.length>0){
+						$(arr).each(function(){
+						var item = pitem.clone().css("display","");
+						$(item).attr("id",this._id)
+						var avatar = this.avatar ? (qiniuRoot + this.avatar + '!avatar') : '../../../images/logo.png'
+						item.find(".avatar").attr("src",avatar);
+						item.find(".pname").text(this.userName);
+						item.find(".psection").text(this.bumenName);
+						$("#item1mobile .noreadlist").append(item);
+						$(item[0]).off("tap").on("tap",function(){
+						osg.open("leavedetail.html","leavedetail.html",{
+							"detailId": $(this).attr("id")
+							
+						});
+					});
+					   })
+					}
+					parme.self.endPullUpToRefresh(data.data.page >= data.data.pages);
+				});
+            }
+
+		//分页2
+		page2 = 0;
+			ptr2 = mui('#item2mobile .mui-scroll').pullToRefresh({
+				down: {
+					callback: function() {
+						$("#item2mobile .readlist").html('');
+						var self = this;
+						page2 = 1;
+						findPage2(1, {
+							'self': self
+						});
+						self.endPullDownToRefresh();
+						self.refresh(true);
+					}
+				},
+				up: {
+					auto: true, //可选,默认false.自动上拉加载一次
+					callback: function() {
+						var self = this;
+						page2++;
+						findPage2(page2, {
+							'self': self
+						});
+					}
+				}
+			});
+	 	//上拉加载下拉刷新上拉加载下拉刷新end
+				function findPage2(page,parme){
+				if (page<=1) {
+				$("#item2mobile .readlist").html('');	
+				}
+				osg.ajax("/app/conference/detail/queryByConfer",{
+					"conference._id": meetid,
+					"page": page,
+					"in:state|array-integer":4
+				},function(data){
+					var arr = data.data.data;
+					$(".readnum").text(arr.length);
+					if(arr.length>0){
+						$(arr).each(function(){
+						var item = twoitem.clone().css("display","");
+						var avatar = this.avatar ? (qiniuRoot + this.avatar + '!avatar') : '../../../images/logo.png'
+						item.find(".avatar").attr("src",avatar);
+						$(item).attr("id",this._id)
+						item.find(".pname").text(this.userName);
+						item.find(".psection").text(this.bumenName);
+						item.find(".leaveend").text()
+						$("#item2mobile .readlist").append(item);
+						$(item[0]).off("tap").on("tap",function(){
+						osg.open("askforleave.html","askforleave.html",{
+							"detailsid": $(this).attr("id")
+							
+						});
+					});
+					   })
+					}
+					parme.self.endPullUpToRefresh(data.data.page >= data.data.pages);
+				});
+           }	
+		})
+		
+		
+	</script>
+	
+	
+
+	</body>
+</html>

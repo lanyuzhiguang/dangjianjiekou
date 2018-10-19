@@ -128,14 +128,11 @@
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="min_bar1"></div>
 				<div class="manage_item font-32" id="appi">
-					<div id="threeSessions">
-						<div class="col-1 manage_label_icon">
-							<i><img style="width: 1rem;margin-left: 0.3rem;" src="../../images/applyJoinparty.png"></i>
-						</div>
+					<div id="threeclass">
 						<div class="col-7">
 							<span>三会一课</span>
 						</div>
-						<div class="col-2 manage_next_pro">
+						<div class="col-3 manage_next_pro">
 							<i></i>
 						</div>
 					</div>
@@ -143,13 +140,10 @@
 				<div class="min_bar1"></div>
 				<div class="manage_item font-32" id="appk">
 					<div id="partyExperice">
-						<div class="col-1 manage_label_icon">
-							<i><img style="width: 1rem;margin-left: 0.3rem;" src="../../images/myjoinParty.png"></i>
-						</div>
 						<div class="col-7">
 							<span>组织生活会</span>
 						</div>
-						<div class="col-2 manage_next_pro">
+						<div class="col-3 manage_next_pro">
 							<i></i>
 						</div>
 					</div>
@@ -157,27 +151,21 @@
 				<div class="min_bar1"></div>
 				<div class="manage_item font-32" id="stats">
 					<div id="joinApplyer">
-						<div class="col-1 manage_label_icon">
-							<i><img style="width: 1rem;margin-left: 0.3rem;" src="../../images/joinApplying.png"></i>
-						</div>
 						<div class="col-7">
 							<span>民主生活会</span>
 						</div>
-						<div class="col-2 manage_next_pro">
+						<div class="col-3 manage_next_pro">
 							<i></i>
 						</div>
 					</div>
 				</div>
 				<div class="min_bar1"></div>
-				<div class="manage_item font-32" id="paty1">
-					<div id="activist">
-						<div class="col-1 manage_label_icon">
-							<i><img style="width: 1rem;margin-left: 0.3rem;" src="../../images/activityFenzi.png"></i>
-						</div>
+				<div class="manage_item font-32" id="stats">
+					<div id="">
 						<div class="col-7">
 							<span>党建活动</span>
 						</div>
-						<div class="col-2 manage_next_pro">
+						<div class="col-3 manage_next_pro">
 							<i></i>
 						</div>
 					</div>
@@ -197,42 +185,11 @@
 			}
 		mui.plusReady(function() {
 			
-			//用户权限控制  
-			/*osg.ajax('user/myfunction', {
-				}, function(data) {
-					console.log(JSON.stringify(data.userrole));
-					if(data.type==0){
-						$("#appi").css("display","");
-						$("#appk").css("display","none");
-					}else{
-						$("#appi").css("display","none");
-						$("#appk").css("display","");
-					}
-					if (data.userrole.DPartyMemberAdmin=='DPartyMemberAdmin') {
-						$("#paty1").css("display","");
-					}else{
-						//判断用户是否有发展党员管理权限
-						osg.ajax('recruit/memberAudit', {
-							}, function(data) {
-								if(data.data.adsum){
-									$("#paty1").css("display","");
-								}
-						});
-					}
-					if (data.userrole.DPartyMemberAudit=='DPartyMemberAudit') {
-						$("#paty2").css("display","");
-					}
-					if (data.userrole.DPartyMemberStatistics=='DPartyMemberStatistics') {
-						$("#stats").css("display","");
-					}
-				}
-			);*/
 
-			var threeSessions = document.getElementById('threeSessions');
-			joinApplyer.addEventListener('tap', function(event) {
-				osg.open("developCount.html", "developCount.html");
+			var threeclass = document.getElementById('threeclass');
+			threeclass.addEventListener('tap', function(event) {
+				osg.open("meeting/myagenda.html", "myagenda.html");
 			});
-
 		});
 	</script>
 

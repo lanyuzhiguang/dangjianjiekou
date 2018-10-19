@@ -1,0 +1,760 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../iconfont/icon/iconfont.css" />
+		<style type="text/css">
+			.joinpeople-content {
+				background: #EFEFF4;
+			}
+			
+			.header-seach {
+				padding: 10px;
+				display: flex;
+				justify-content:space-between;
+				align-items: center;
+			}
+			
+			input[type=search] {
+				background: #fff;
+				border: 1px solid #DDDDDD;
+			}
+			
+			.search-bottom {
+				margin-bottom: -15px;
+				flex: 100%;
+			}
+			.check-name-section {
+				font-size: 12px;
+				color: #DDDDDD;
+				padding-bottom: 5px;
+				border-bottom: 0.5px solid #DDDDDD;
+			}
+			
+			.checkpeople {
+				margin-top: 10px;
+				background-color: #FFFFFF;
+			}
+			
+			.checkpeople-item {
+				padding-top: 6px;
+				background: #FFFFFF
+			}
+			
+			.mui-checkbox {}
+			
+			.footer {
+				position: fixed;
+				bottom: 0;
+				line-height: 1.5;
+				display: flex;
+				align-items: center;
+			}
+			
+			.clearfix:after {
+				display: block;
+				clear: both;
+				content: "";
+			}
+			
+			.selectleft {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				width: 75%;
+				overflow-x: auto;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.select {
+				z-index: 998;
+				margin-left: 20px;
+				border: 1px solid #CDE2F3;
+				background: #E9F6FF;
+				height: 22px;
+				display: flex;
+				justify-content: flex-start;
+				flex-wrap: nowrap;
+				align-items: center;
+			}
+			
+			.del {
+				font-size: 20px;
+				padding-left: 10px;
+			}
+			
+			.btn {
+				display: block;
+				background: none;
+				border: none;
+				color: #D61D1D;
+				position: absolute;
+				right: 10px;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+			}
+			
+			.btn:disabled {
+				color: #ACACAC;
+				opacity: 1;
+				-webkit-text-fill-color: #666;
+				-webkit-opacity: 1;
+			}
+			
+			.mui-navigate-right::after,
+			.mui-push-left::after,
+			.mui-push-right::after {
+				font-size: 1.875rem;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before,
+			.mui-radio input[type=radio]:checked:before {
+				color: #D61D1D;
+			}
+			.mui-checkbox input[type=checkbox]:before,
+			.mui-radio input[type=radio]:before {
+				color: #D61D1D;
+			}
+			
+			.mui-checkbox input[type=checkbox][disabled]:before,
+			.mui-radio input[type=radio][disabled]:before {
+				color: #AAAAAA;
+			}
+			.mui-checkbox.mui-left label,
+			.mui-radio.mui-left label {
+				padding-right: 2rem;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 50%;
+				bottom: 50%;
+				margin: auto 0;
+			}
+			.checkentire {
+				position: relative;
+				z-index: 20;
+			}
+			.allpeople{
+				color: #D61D1D;
+			}
+			.icon-fenpeiqunzhong{
+				color: #30A9FF;
+			}
+			.secbumen{
+				width:90%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				
+			}
+			.ppagenext{
+				display:flex; 
+				justify-content: space-between;
+				height: 2.5rem;
+				align-items: center;
+				padding: 0.705rem;
+				padding-left: 1rem;
+				background-color: #FFFFFF;
+				width:100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.icon-fanhui1{
+				font-size: 1.875rem;
+				color: #E9E9E9;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">参加人员</h1>
+			<div class="mui-pull-right checkentire">全选</div>
+		</header>
+		<div class="mui-content joinpeople-content" style="margin-bottom: 2.8rem;">
+			<div class="header-seach">
+				<div class="mui-input-row mui-search search-bottom">
+					<input type="search" class="mui-input-clear" placeholder="搜索" id="search">
+				</div>
+				<span class="allpeople" style="display: none;">全部</span>
+			</div>
+			<div id="pageone" class="choosepeo">
+				<div class="ppagenext">
+					<div class="secbumen">
+						<span class="iconfont icon-fenpeiqunzhong jiantou"></span>
+						<span id="section" class="sectionbumen"></span>
+					</div>		
+					<span class="iconfont icon-fanhui1 pagenext"></span>
+				</div>
+				<div class="checkpeople checkpeoplelist bumenlist"></div>
+			</div>
+		</div>
+		<!--底部-->
+		<div class="footer mui-bar clearfix">
+			<div class="selectleft">
+				
+			</div>
+			<button type="button" class="btn" disabled="disabled">确认(<span id="checkpeoplenum"></span>)</button>
+		</div>
+		<!--底部item-->
+		<div class="select" style="display: none;">
+			<div class="selectdisplay"></div>
+			<div class="del"></div>
+		</div>
+		<!--接口人-->
+		<div class="checkpeople-item peopleitem">
+			<div class="mui-checkbox mui-left">
+				<label>
+		        <div class="checkname"></div>
+		        <div class="check-name-section bumenname"></div>
+		        </label>
+				<input name="checkbox1" value="张三" type="checkbox" class="namexuan">
+			</div>
+		</div>
+		<!--end-->
+		<!--接口下属部门-->
+		<div class="mui-input-row mui-checkbox mui-left mui-table-view dangchoose nextsection-item">
+			<label class="zongtitle "></label>
+			<input name="checkbox4" value="Item 1" type="checkbox" class="selectone">
+			<a class="mui-navigate-right pagenext"></a>
+	    </div>
+		<!--end-->
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/common.js"></script>
+<script src="../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../js/mui.pullToRefresh.material.js"></script>
+<script type="text/javascript">
+	mui.init()
+	mui.plusReady(function() {
+		var bumen = {},//主要存放的部门的map对象
+			user = {},//主要存放的是用户的map部门分组对象
+			tbumen = [],//目前主要想要用于返回控制处理
+			budata = {},//该对象主要用于存放
+			nowbumen = {};//现在显示的信息所对应的部门的信息
+		//主要存放已经选择的用户的信息
+		var selectArr = osg.param("selectArr");
+		if (!selectArr) {
+			selectArr = [];
+		}
+		//主要存放当前页显示的用户的信息的数组
+		var pagepeoplearr = [];
+		var peopleitem = $(".peopleitem");
+		var bumenitem = $(".nextsection-item");
+		var selectitem = $(".select");
+		    peopleitem.remove();
+		    bumenitem.remove();
+		    selectitem.css("display","")
+		    selectitem.remove();
+		//获取选中的发布组织信息
+		var peoplesectionid = osg.param("peoplesectionid");
+		var peoplesection = osg.param("peoplesection");
+			//接口
+		osg.ajax("/app/conference/tenant/queryBUbyId", {
+			forbumenId: peoplesectionid
+		}, function(data) {
+ 			budata=data.data;
+			bumen = data.data.bumen;
+			user = data.data.user;
+			tbumen.push(data.data.url);
+			nowbumen = data.data.url;
+			//获取当前需要显示的部门的信息
+			query();
+		})
+    //搜索
+    $("#search").bind("search",function(){
+	    $(".allpeople").css("display","block")
+	    $(".search-bottom").css("flex","80%")
+	    $(".checkentire").css("display","none")
+	    $('#search').blur();
+	    
+      	var searchArr = [];
+      	var searchname = $.trim($("#search").val())
+      	query(searchname);
+        $(".allpeople")[0].addEventListener("tap",function(){
+        	$(".checkpeoplelist").html("")
+        	$(".allpeople").css("display","none")
+//	        $(".search-bottom").css("flex","80%")
+          	$(".checkentire").css("display","block")
+          	query();
+        })
+      })
+        //搜索end
+        //确定
+		var btn = $(".btn");
+		btn.off("tap").on('tap', function(event) {
+			if(selectArr.length>0){
+				//获得事件参数
+				var okname = selectArr[0].name 
+				joinpeople = okname + "...等"+selectArr.length+"人参加会议！"
+				var wvB = plus.webview.currentWebview(); //获取当前窗口的WebviewObject对象
+				var wvA = wvB.opener(); //获取当前窗口的创建者
+				//触发上一个页面的指定的事件
+				mui.fire(wvA, 'joinpeople', {
+					"selectArr":selectArr,
+					"joinpeople": joinpeople
+				});
+				//关闭当前页面
+				wvB.close();
+			}else{
+				osg.toast("请至少选择一人参加会议！");
+			}
+		});	
+		//确定END
+	/**
+	 * 根据当前显示部门的信息进行页面渲染处理
+	 */
+	function query(searchname){
+		if (tbumen.length==1||bumen[nowbumen._id]==null) {
+			//$(".checkentire").css("display","none");
+			all(searchname);
+		} else{
+			//$(".checkentire").css("display","");
+			tolistbumen(searchname);
+		}
+		orallchecked();
+		//如果存在子级部门则监听跳转子级按钮
+		if(bumen[nowbumen._id]){
+			onPageNext();
+		}
+		
+	}
+	//下一步
+	function onPageNext(){
+		//监听下一页图标
+		$(".pagenext").each(function(index, item) {
+			//alert($(item).prop("outerHTML"));
+			//alert($(this).prop("outerHTML"));
+			$(this).off('tap').on("tap", function() {
+				nowbumen = {};
+				nowbumen._id = $(this).attr("ownid");
+	    		nowbumen.name = $(this).attr("ownname");
+	    		tbumen.push(nowbumen);
+	    		query();
+			})
+		})
+	}
+			   
+	//接口函数
+	function orallchecked (){
+		//全选和取消全选start
+		var allor = $(".checkpeoplelist input[type='checkbox']:checked").length == $(".checkpeoplelist input[type='checkbox']").length
+		if(allor) {
+			$(".checkentire").text("取消全选")
+		} else {
+			$(".checkentire").text("全选")
+		}
+		//全选和取消全选input改变
+		$(".checkpeoplelist input[type=checkbox]").each(function(i, orone) {
+			$(orone).off('tap').on('tap', function() {
+				var allor = $(".checkpeoplelist input[type='checkbox']:checked").length == $(".checkpeoplelist input[type='checkbox']").length
+				if(allor) {
+					$(".checkentire").text("取消全选")
+				} else {
+					$(".checkentire").text("全选")
+				}
+			})
+		})
+		//全选和取消全选input改变end
+		//全选和取消全选的按钮改变
+		$(".checkentire").off('tap').on('tap', function() {
+			var allor = $(".checkpeoplelist input[type='checkbox']:checked").length == $(".checkpeoplelist input[type='checkbox']").length
+			if(!allor) {
+				$(".checkpeoplelist input[type=checkbox]").prop("checked", true);
+				$(".checkentire").text("取消全选")
+				allor = !allor
+				$(".selectleft").html("")
+				$(".checkpeoplelist input[type=checkbox]").each(function(index, item) {
+					if (tbumen.length==1||bumen[nowbumen._id]==null) {
+						//人员的全选
+						var checkobject = {};
+						checkobject.id = $(this).attr("ownid");
+		    			checkobject.name = $(this).attr("ownname");
+						var bl = true;
+						for(var i = 0; i < selectArr.length; i++) {
+							if(selectArr[i].id == checkobject.id) {
+								bl = false;
+							}
+						}
+						if(bl) {
+							selectArr.push(checkobject);
+						}
+					}else{
+						//部门的全选
+						var thisBuem = {};
+						var bid = $(this).attr("ownid");
+						var bname = $(this).attr("ownname");
+						thisBuem._id = bid;
+						thisBuem.name = bname;
+						//获取部门下所有部门信息
+						var bms = findnextsection(bid);
+						//添加当前点击选中部门信息
+						if (bms) {
+							bms.push(thisBuem)
+						} else {
+							bms = [];
+							bms.push(thisBuem);
+						}
+						//获取点击的部门及部门下所有子部门的用户信息
+						var nextpeoplearr = findpeople(bms, user);
+						//如果是选中则将所有用户信息添加到选中的用户数组中
+						$(nextpeoplearr).each(function(i,item){
+							var itemobj = {};
+				 		    itemobj.id = this._id;
+				 		    itemobj.name =this.name;
+				 		    selectArr.push(itemobj);
+				 		 })
+						//去重处理
+						selectArr = quchongtwo(selectArr);
+					}
+				})
+			} 
+			else {
+				$(".checkpeoplelist input[type=checkbox]").prop("checked", false);
+				$(".checkpeoplelist input[type=checkbox]").each(function(index, item) {
+					if (tbumen.length==1||bumen[nowbumen._id]==null) {
+						//人员的取消全选
+						var nocheckobject = {};
+						nocheckobject.id = $(this).attr("ownid");
+		    			nocheckobject.name = $(this).attr("ownname");
+						selectArr = removeObj(selectArr, nocheckobject);
+					}else{
+						//部门的取消全选
+						var thisBuem = {};
+						var bid = $(this).attr("ownid");
+						var bname = $(this).attr("ownname");
+						thisBuem._id = bid;
+						thisBuem.name = bname;
+						//获取部门下所有部门信息
+						var bms = findnextsection(bid);
+						//添加当前点击选中部门信息
+						if (bms) {
+							bms.push(thisBuem)
+						} else {
+							bms = [];
+							bms.push(thisBuem);
+						}
+						//获取点击的部门及部门下所有子部门的用户信息
+						var nextpeoplearr = findpeople(bms, user);
+						var arrId=[];
+						for (var i=0;i<nextpeoplearr.length;i++) {
+							arrId.push(nextpeoplearr[i]._id);
+						}
+						selectArr=delidarr(selectArr,arrId);
+					}
+					
+				})
+				$(".checkentire").text("全选")
+			}
+			setSelectArrX();
+		})
+	  //全选和取消全选的按钮改变end
+	  //全选和取消全选END
+	}
+	function delX() {
+		var namexuan = $(".namexuan")
+		var pagecheck = $(".checkpeople input[type=checkbox]")
+		var del = $(".del")
+		$(".del").each(function(index, delone) {
+			$(delone).off('tap').on("tap", function() {
+				$(".checkentire").text("全选")
+				var id = $(this).parent().attr("id");
+				var nocheckobject = {};
+				nocheckobject.id = id;
+				selectArr = removeObj(selectArr, nocheckobject);
+				setSelectArrX();
+			})
+		})
+	}
+    //选择人员函数
+	function changeinput() {
+        $("[name='checkbox1']").change(function() {
+        	if(this.checked) {
+        		var checkobject = {};
+        		checkobject.name = $(this).val();
+        		checkobject.id = $(this).attr("itemid")
+        		selectArr.push(checkobject)
+        		$(".btn").attr("disabled", false)
+        	} else {
+        		var nocheckobject = {};
+        		nocheckobject.name = $(this).val();
+        		nocheckobject.id = $(this).attr("itemid")
+        		selectArr = removeObj(selectArr, nocheckobject);
+        	}
+        	setSelectArrX();      	
+        	delX()
+        	//  删除选中
+        })
+	}
+	//选择人员end
+	//取到所有的下属部门部门
+	function findnextsection(bid) {
+		if(bumen[bid]) {
+			var bumens = [];
+			for(var i=0;i<bumen[bid].length;i++) {
+				bumens.push(bumen[bid][i]);
+				var c = findnextsection(bumen[bid][i]._id);
+				if(c) {
+					bumens.concat(c);
+				}
+			}
+			return bumens;
+		}
+		return null;
+	}
+    //取到部门的所有人人
+	function findpeople(bumens, user) {
+		var users = [];
+		for(var i = 0; i < bumens.length; i++) {
+			var b = bumens[i];
+			if(user[b._id]) {
+				var us = user[b._id];
+				for(var j = 0; j < us.length; j++) {
+					us[j].bumenName = b.name;
+					users.push(us[j]);
+				}
+			}
+		}
+		return users;
+	}
+    /**
+     * 删除对象数组中指定id的对象
+     * @param {Object} arrs 对象数组
+     * @param {Object} delitem 要删除对象的id
+     */
+	function removeObj(arrs, delitem) {
+		var bs = [];
+		for(var i = 0; i < arrs.length; i++) {
+			if(arrs[i].id != delitem.id) {
+				bs.push(arrs[i]);
+			}
+		}
+		return bs;
+	}
+	/**
+	 * 判断对象数组中是是否存在指定id的对象
+	 * @param {Object} arrs 对象数组
+	 * @param {Object} item 指定的对象的id
+	 */
+	function indexOfId(arrs, item) {
+		for(var i = 0; i < arrs.length; i++) {
+			if(arrs[i].id == item) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * 渲染当前部门下所有用户的信息
+	 */
+    function all (searchname){
+    	$(".checkpeoplelist").html("");
+    	$(".ppagenext").css("display","");
+    	$("#section").text(nowbumen.name);
+		$("#section").attr("ownid",nowbumen._id);
+    	$(".ppagenext .pagenext").attr("ownid",nowbumen._id);
+    	$(".ppagenext .pagenext").attr("ownname",nowbumen.name);
+    	var allbuarr = [];
+		var nextbuarr=findnextsection(nowbumen._id);
+		if(nextbuarr) {
+			$(nextbuarr).each(function(){	
+                allbuarr.push(this)
+			})
+			allbuarr.push(nowbumen);
+		} 
+		else {
+			allbuarr.push(nowbumen);
+		}
+		//获取所有需要渲染的用户的信息
+	    pagepeoplearr = findpeople(allbuarr, user);
+    	if (!bumen[nowbumen._id]) {
+			$(".ppagenext .pagenext").css("display","none");
+		}else{
+			$(".ppagenext .pagenext").css("display","");
+		}
+		$(pagepeoplearr).each(function() {
+			var item = peopleitem.clone()
+			var bumenName = this.bumenName;
+			var name = this.name;
+			var myid = this._id;
+			var inputor =indexOfId(selectArr,myid)
+			item.find(".namexuan").prop("checked", inputor);
+			item.addClass(myid);
+			item.find(".checkname").html(name);
+			item.find(".namexuan").attr("itemid", myid);
+			item.find(".namexuan").attr("ownid",myid);
+    		item.find(".namexuan").attr("ownname",name);
+			item.find(".namexuan").val($.trim(name));
+			item.find(".bumenname").html(bumenName);
+			if (searchname) {
+				if ((this.name).indexOf(searchname)!=-1) {
+					$(".checkpeoplelist").append(item);
+				}
+			} else{
+				$(".checkpeoplelist").append(item);
+			}
+		})
+		changeinput();
+    }
+    /**
+     * 渲染当前部门下子级部门的信息
+     */
+    function tolistbumen(searchname){
+    	//隐藏用户列表头部部门信息
+		$(".ppagenext").css("display","none");
+		$(".bumenlist").html("");
+		var nextbus = bumen [nowbumen._id];
+		$(nextbus).each(function(){
+			var item =bumenitem.clone()
+            var name = this.name;
+			var owenid = this._id;
+			item.find(".zongtitle").text(name)
+			item.find(".selectone").attr("itemid",owenid)
+			item.find(".selectone").attr("ownid",owenid);
+			item.find(".selectone").attr("ownname",name);
+			item.find(".pagenext").attr("ownid",owenid);
+			item.find(".pagenext").attr("ownname",name);
+			if (searchname) {
+				if ((this.name).indexOf(searchname)!=-1) {
+					$(".checkpeoplelist").append(item);
+				}
+			} else{
+				$(".checkpeoplelist").append(item);
+			}
+		})
+	  	//change
+	  	var itempeoplearr = [];
+		$("[name='checkbox4']").change(function() {
+			var thisBuem = {};
+			var bid =$(this).attr("itemid");
+			var bname = $(this).parent().text();
+			thisBuem._id = bid;
+			thisBuem.name = bname;
+			//获取部门下所有部门信息
+			var bms = findnextsection(bid);
+			//添加当前点击选中部门信息
+			if (bms) {
+				bms.push(thisBuem)
+			} else {
+				bms = [];
+				bms.push(thisBuem);
+			}
+			//获取点击的部门及部门下所有子部门的用户信息
+			var nextpeoplearr = findpeople(bms, user);
+			if (this.checked) {
+				//如果是选中则将所有用户信息添加到选中的用户数组中
+				$(nextpeoplearr).each(function(i,item){
+					var itemobj = {};
+		 		    itemobj.id = this._id;
+		 		    itemobj.name =this.name;
+		 		    selectArr.push(itemobj);
+		 		 })
+				//去重处理
+				selectArr = quchongtwo(selectArr);
+			} 
+			else{
+				var arrId=[];
+				for (var i=0;i<nextpeoplearr.length;i++) {
+					arrId.push(nextpeoplearr[i]._id);
+				}
+				selectArr=delidarr(selectArr,arrId);
+			}		
+			//处理底部选中人员数据显示
+			setSelectArrX();
+		})
+   }
+    /**
+     * 将当前已经选中的人员信息显示在底部
+     */
+    function setSelectArrX(){
+    	$(".selectleft").html("")
+	 	$(selectArr).each(function(){
+	 		var item=selectitem.clone()
+			item.find(".selectdisplay").text(this.name);
+			item.find(".del").text("X");
+			item.attr("id",this.id);
+			$(".selectleft").append(item);
+	 	})
+	 	$("#checkpeoplenum").text(selectArr.length)
+	 	$(".btn").attr("disabled", false)
+		delX()
+    }
+    
+	function quchong (Arr){
+		var Arr = [1,2,3,2,2,3,1,6];
+		    len = Arr.length;
+		for (var i = 0; i<len; i++) {
+	  	for (var j = i+1 ; j<len; j++){
+	  		if (Arr[i]==Arr[j]) {
+	  			Arr.splice(j,1);
+	  			len--;
+	  			j--;
+	  		} 
+		  }
+  	    }
+		return Arr
+	}
+	/**
+	 * 根据对象数组的对象id对数组中对象进行去重
+	 * @param {Object} Arr 需要根据id去重的对象数组
+	 */
+    function quchongtwo (Arr){
+		var umap={};
+		for (var i=0;i<Arr.length;i++) {
+			umap[Arr[i].id]=Arr[i];
+		}
+		Arr=[];
+		for (var key in umap) {
+		    Arr.push(umap[key]);
+		}
+		return Arr
+	}
+    /**
+     * 删除指定对象数组中拥有指定id集合的对象数组中指定的对象
+     * @param {Object} arr 对象数组
+     * @param {Object} arrId 指定删除对象的id的集合
+     */
+    function delidarr(arr,arrId){
+    	var umap={};
+		for (var i=0;i<arr.length;i++) {
+			umap[arr[i].id]=arr[i];
+		}
+		for (var i=0;i<arrId.length;i++) {
+			umap[arrId[i]]="";
+		}
+		arr=[];
+		for (var key in umap) {
+			if (umap[key]!="") {
+				arr.push(umap[key]);
+			}
+		}
+		return arr
+    }
+    
+    //返回按钮事件
+    mui.back = function(event) {
+     	if (tbumen.length==1) {
+     		osg.closeMe();
+     	} else{
+     		tbumen=truncate(tbumen);
+     		nowbumen=tbumen[tbumen.length-1];
+     		query();
+     	}
+    }
+    function truncate(arr) {
+	    return arr.slice(0,-1);
+	}
+	})
+
+</script>
+</body>
+
+</html>

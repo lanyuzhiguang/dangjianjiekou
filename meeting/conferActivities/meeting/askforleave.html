@@ -1,0 +1,330 @@
+<html>
+	<head>
+		<title>请假申请</title>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css"/>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "苹方";
+				font-size: 0.882352rem;
+				
+			}
+			.title{
+				font-size: 0.941176rem;
+			}
+			.content {
+				width: 100%;
+				margin-top: 0.588rem;
+				padding-right:0.588rem;
+			}
+			.content>section>.title{
+				padding-bottom: 0.352941rem;
+				border-bottom: 1px solid #EDEDED;
+			}
+			.content_con{
+				padding: 0.294117rem;
+			}
+			.content_con>div{
+				padding: 0.235294rem 0;
+			}
+			.error{
+				padding-left: 8%;
+				background: url(../../../images/img/error.png) 0.588235rem 0 no-repeat;
+				
+			}
+			.blue{
+				padding-left: 8%;
+				background: url(../../../images/img/blue.png) 0.588235rem 0 no-repeat;
+			}
+			.green{
+				padding-left: 8%;
+				background: url(../../../images/img/success.png) 0.588235rem 0 no-repeat;
+			}
+			.red{
+				padding-left: 8%;
+				background: url(../../../images/img/red.png) 0.588235rem 0 no-repeat;
+		
+			}
+			
+			.zongcol.actives{
+				padding-left: 8%;
+				background: url(../../../images/success.png) 10px 0 no-repeat,url(../../../images/erroe-line.png) 10px 12px repeat-y;
+			}
+			.tijiao.actives{
+				background: url(../../../images/blue.png) 10px 0 no-repeat,url(../../../images/erroe-line.png) 10px 12px repeat-y;
+			}
+			
+			.input-item{
+				width:20rem;
+				height: 2.117647rem;
+				border: 1px solid#CCCCCC;
+				border-radius: 4px;
+				padding:0.588rem;
+				font-size: 0.882352rem;
+			}
+			textarea{
+				min-height: 8.8235rem;
+				font-size: 0.882352rem;
+			}
+			.btns{
+				text-align: center;
+			}
+			.btn{
+				color: #FFFFFF;
+				background-color: #169BD5;
+				width: 8.2353rem;
+				height: 2.3529rem;
+				border: 1px solid#169BD5;
+			}
+			.mask-content {
+				width: 11.765rem;
+				height: 6.353rem;
+				background-color: #FFFFFF;
+				margin: 0 auto;
+				text-align: center;
+				line-height:  6.353rem;
+				margin-top: 10rem;
+			}
+			.mui-backdrop {
+			    position: fixed;
+			    top: 0;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    z-index: 998;
+			    background-color: rgba(0,0,0,.7);
+			}
+			.content_con_item{
+				display: flex;
+				justify-content: flex-start;
+			}
+			.content_con_title{
+				flex: 25%;
+				font-size: 0.941176rem;	
+			}
+			.content_con_content{
+				flex: 75%;
+				font-size: 0.882352rem;
+			}
+			.leavecontent{
+				color: #000000;
+				line-height: 1.4;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left">返回</a>
+		    <h1 class="mui-title">请假审核</h1>
+		</header>
+		<div style="height: 2.8rem;"></div>
+		<!--<form action="" method="post">-->
+			<div class="upleave" style="display:none;">
+				<article>
+					<div class="content">
+						<section class="actives tijiao">
+							<div class="title">提交请假信息</div>
+							<div class="content_con">
+								<div>
+									<div>标题：</div>
+									<div>
+										<input type="" name="" id="" value=""  placeholder="请输入" class="input-item leavetitle"/>
+									</div>
+								</div>
+								<div>
+									<div>姓名：</div>
+									<div>
+										<input type="" name="" id="" value="" placeholder="请输入" class="input-item leavename"/>
+									</div>
+								</div>
+								<div>
+									<div>所属支部：</div>
+									<div>
+										<input type="" name="" id="" value=""  placeholder="请输入"  class="input-item leavesection"/>
+									</div>
+								</div>
+								<div>
+									<div>请假事由：</span>
+									<textarea name="" rows="" cols=""  placeholder="请输入" class="leavecontent"></textarea>
+								</div>
+								<!--</form>-->
+								<div class="btns">
+									<button class="btn" id="submitleave">提交</button>
+								</div>
+							</div>
+						</section>
+						<section class="error">
+							<div class="title-bot " >审核请假信息</div>
+						</section>
+					</div>
+					<div class="mui-backdrop" style="display: none;" id="mask">
+						<div class="mask-content " >请假申请已提交</div>
+					</div>
+			   </article>
+			</div>
+			<div class="leavemsg" style="display:none;">
+				<article>
+			<div class="content">
+				<section class="actives zongcol">
+					<div class="title">
+						提交请假信息
+						<span class="uptime time">2018-09-21 12:00:00</span>
+					</div>
+					<div class="content_con">
+						<div class="content_con_item"><div class="content_con_title">标题：</div><div class="leavetitle content_con_content"></div></div>
+						<div class="content_con_item"><div class="content_con_title">姓名：</div><div class="leavename content_con_content">张三</div></div>
+						<div class="content_con_item"><div class="content_con_title">所属支部：</div><div class="leavesection content_con_content">×××党支部</div></div>
+						<div>
+							<span>请假事由：</span>
+							<p class="leavecontent">请假的理由胜多负少日本光棍节回复神分分耳边风忽热UR恩负erect人个 如果不如不当回事不好的事吧宝贝三大部分八点半让别人烽火佳人播放ear并返回我不发热热风u而不会的说法表达式别人的我热备份和监护人的世博会九点半呵呵不打算发红包就不会改变而发布页</p>
+						</div>
+					</div>
+				</section>
+				<section class="blue">
+						<div>
+							<span>审核结论：</span>
+							<p>待审核</p>
+						</div>
+				</section>
+			</div>
+		</article>	
+			</div>
+			<div class="leaveresult" style="display:none;">
+			<article>
+			<div class="content">
+				<section class="actives zongcol">
+					<div class="title">
+						提交请假信息
+						<span class="uptime time">2018-09-21 12:00:00</span>
+					</div>
+					<div class="content_con">
+						<div class="content_con_item"><div class="content_con_title">标题：</div><div class="leavetitle content_con_content"></div></div>
+						<div class="content_con_item"><div class="content_con_title">姓名：</div><div class="leavename content_con_content">张三</div></div>
+						<div class="content_con_item"><div class="content_con_title">所属支部：</div><div class="leavesection content_con_content">×××党支部</div></div>
+						<div>
+							<span>请假事由：</span>
+							<p class="leavecontent">请假的理由胜多负少日本光棍节回复神分分耳边风忽热UR恩负erect人个 如果不如不当回事不好的事吧宝贝三大部分八点半让别人烽火佳人播放ear并返回我不发热热风u而不会的说法表达式别人的我热备份和监护人的世博会九点半呵呵不打算发红包就不会改变而发布页</p>
+						</div>
+					</div>
+				</section >
+				<section class="zongcol green">
+					<div class="title">
+						审核请假信息
+						<span class="commenttime time"></span>
+					</div>
+					<div class="content_con">
+						<div>
+							<span>审核意见：</span>
+							<p class="comment">审核意见胜多负少日本光棍节回复神分分耳边风忽热UR恩负erect人个 如果不如不当回事不好的事吧宝贝三大部分八点半让别人烽火佳人播放ear并返回我不发热热风u而不会的说法表达式别人的我热备份和监护人的世博会九点半呵呵不打算发红包就不会改变而发布页</p>
+						</div>
+						<div>
+							<span>审核结论：</span>
+							<p class="result">批准请假</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</article>	
+	</div>
+			
+		
+	</body>
+</html>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/mui.picker.min.js"></script>
+<script src="../../../js/common.js"></script>
+<script src="../../../js/mui.zoom.js"></script>
+<script src="../../../js/mui.previewimage.js"></script>
+<script src="../../../js/mui.dtpicker.js"></script>
+<script src="../../../js/wangEditor/js/wangEditor.js"></script>
+<script src="../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../js/mui.pullToRefresh.material.js"></script>
+<script type="text/javascript">
+	mui.init();
+	mui.plusReady(function() {
+		var mymeetid = osg.param("detailsid");
+		xuanran()
+		function xuanran (){
+			 osg.ajax("/app/conference/detail/findById",{"detailId":mymeetid},function(data){
+		 	var leave = data.data.leave;
+		 	var conference = data.data.conference;
+		 	if (leave.length ==0){
+		 		$(".upleave").css("display","");
+//		 		$("section").css("background","url(../../../images/error.png) 10px 0 no-repeat");
+//		 		$(".actives").css("background"," url(../../../images/blueer.png) 10px 0 no-repeat,url(../../../images/erroe-line.png) 10px 12px repeat-y");
+			 	$(".leavetitle").val(conference.title);
+			    $(".leavename").val(data.data.userName);
+			    $(".leavesection").val(conference.forbumname);
+		 	}
+		 	if(leave.length ==1){
+		 		var time = leave[0].formatCreateTime;
+		 		$(".leavemsg").css("display","");
+//		 		$("section").css("background","url(../../../images/blueer.png) 10px 0 no-repeat");
+//		 		$(".actives").css("background"," url(../../../images/success.png) 10px 0 no-repeat,url(../../../images/erroe-line.png) 10px 12px repeat-y");
+			 	$(".leavetitle").text(data.data.leave[0].title);
+			    $(".leavename").text(data.data.leave[0].userName);
+			    $(".leavesection").text(data.data.leave[0].bumenName);
+			    $(".leavecontent").text(data.data.leave[0].content);
+		 		$(".uptime").text(time);
+		 	}
+		 	if(leave.length ==2){
+		 		var state = data.data.state;
+		 		var time = leave[0].formatCreateTime;
+		 		var commenttime = leave[1].formatCreateTime;
+		 		var commentcontent = leave[1].formatCreateTime;
+		 		$(".leaveresult").css("display","");
+		 		
+			 	$(".leavetitle").text(data.data.leave[0].title);
+			    $(".leavename").text(data.data.leave[0].userName);
+			    $(".leavesection").text(data.data.leave[0].bumenName);
+			    $(".leavecontent").text(data.data.leave[0].content);
+		 		$(".uptime").text(time);
+		 		$(".commenttime").text(commenttime);
+		 		$(".comment").text(data.data.leave[1].content);
+		 		
+		 		if (state==7) {
+		 			$(".zongcol").addClass("red")
+//		 			$(".actives").css("background"," url(../../../images/success.png) 10px 0 no-repeat,url(../../../images/erroe-line.png) 10px 12px repeat-y");
+//		 			$("section").css("background","url(../../../images/red.png) 10px 0 no-repeat");
+		 			$(".result").text("驳回");
+		 		} else if (state==4){
+//		 			$("section.actives").css("background"," url(../../../images/success.png) 10px 0 no-repeat,url(../../../images/erroe-line.png) 10px 12px repeat-y");
+//		 			$("section").css("background","url(../../../images/success.png) 10px 0 no-repeat");
+		 			$(".result").text("批准请假");	
+		 		}
+		 		
+		 	}
+		 	
+		 })
+		}
+		
+		
+		
+	var submitleave = document.getElementById("submitleave")
+	submitleave.addEventListener("click",function(){
+		var title =$(".leavetitle").val();
+		var userName =$(".leavename").val();
+		var bumenName = $(".leavesection").val();
+		var content =$(".leavecontent").val();
+		osg.ajax("/app/conference/detail/userLeave",{"detailId":mymeetid,"title":title,"userName":userName,"bumenName":bumenName,"content":content},function(data){
+	        
+	       
+		       $("#mask").css("display","block");
+		       setTimeout(function(){
+		       	$(".upleave").css("display","none");
+		       	$("#mask").css("display","none");
+		       	xuanran()
+		       },2000)
+		})
+	})
+	})
+
+	
+</script>

@@ -1,0 +1,764 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../../css/style.css" rel="stylesheet" />
+		<link href="../../../js/wangEditor/css/wangEditor.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../iconfont/icon/iconfont.css"/>
+		
+		<style media="screen">
+			a.mui-action-back {
+				color: #fff;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 100%;
+			}
+			.mui-input-group:before {
+				height: 0px;
+			}
+			.mui-input-group:after {
+				height: 0px;
+			}
+			.mui-input-group .mui-input-row:after {
+				height: 0px;
+			}
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			.mui-input-row {
+				margin: 0px 1rem;
+			}
+			.login-rect {
+				border: 1px solid #666666;
+				position: relative;
+				float: left;
+				width: 100%;
+				border-radius: 6px;
+			}
+            .meeting-img{
+            	padding: 5px 0;
+            }
+			#imgList {
+				padding: 0;
+				padding-left: 1.2rem!important;
+				display: flex;
+				justify-content: flex-start;
+			    flex-wrap:wrap;
+				width: 100%;
+			}
+			.imageList>div {
+				/*width: 5.74rem!important;*/
+				width: 26%;
+				height: 5rem!important;
+				overflow: hidden;
+				padding-top: 0!important;
+				margin-left: 0;	
+			}
+			.imgItem {
+				padding-left: 0!important;
+				padding-right: 0!important;
+				margin-right: 1.2rem;
+				margin-bottom: 0.588rem;
+				position: relative;
+			}
+			/*.imageList div>a>img {
+				width: 5.74rem!important;
+				height: 5.74rem;
+				margin-bottom: 0.588rem;
+				margin-top: 0!important;
+			}*/
+			.imageList div>img {
+				display: block;
+				width: 100%;
+				/*width: 5.74rem!important;*/
+				height: 100%;
+				margin-bottom: 0.588rem;
+				margin-top: 0!important;
+			}
+			.del img {
+				position: absolute;
+				width: 1rem!important;
+				right: 0;
+				top: 0;
+			}
+			.materials-content{
+				font-size: 0.705rem;
+				color: #CCCCCC;
+			}
+			.meeting-materials-two{
+				padding-top: 0.588rem;
+			}
+			
+			.btns{
+				text-align: center;
+			}
+			.btn{
+				width: 90%;
+				background-color: #169BD5;
+				color: #FFFFFF;
+				border: 1px solid#169BD5;
+				border-radius:4px ;
+				height: 2.35rem;
+				margin: 0.882rem 0.588rem 0.294rem 0.588rem;
+			}
+			.wangEditor-container{
+				z-index: 0;
+			}
+			#editor-trigger{
+				padding-top: 0.588rem;
+				width: 100%;            
+				min-height:14.706rem;
+				/*border: 1px solid#CCCCCC;*/
+			}
+			/*提示*/
+			.shade{
+				position:fixed;
+				top: 0;
+				bottom:0;
+				left:0;
+				right:0;
+				background:rgba(77,77,77,0.6);
+			
+			}
+			.popup-btn{
+				width: 90px;
+				height: 35px;
+				text-align: center;
+			}
+			.pop-up{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 17.647rem;
+				height: 12rem;
+				background-color: #FFFFFF;
+				color:#000000;
+				font-size: 0.941rem;
+				padding: 0 0.588rem;
+			}
+			.popup-top{
+				display: flex;
+				justify-content: space-between;
+				border-bottom: 1px solid #000000;
+				padding: 0.294rem;
+			}
+			.popup-btn-two{
+				color: #FFFFFF;
+				background-color: #169BD5;
+				border: 1px solid#169BD5;
+			}
+			.popup-btns{
+				padding: 10px 20px;
+				display: flex;
+				justify-content: space-between;
+			}
+			#meetingcontent{
+				line-height:1.5;
+				
+			}
+			.fujian{
+				color: #CCCCCC;
+			}
+		
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav news_header">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left">返回</a>
+			<h1 id="headertitle" class="mui-title">变更会议信息</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+			    <div class="mui-input-row" style="margin-top: 30px;">
+			    	<div>
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">标题</span>
+			    	</div>
+		    	    <div id="title" class="login-rect">
+				       <input id='titleText' type="text" class="mui-input-clear mui-input"  placeholder="请输入文本" required="required" >
+					</div>
+				</div>
+				<div class="mui-input-row" style="margin-top: 20px;">
+			    	<div>
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">分类</span>
+			    	</div>
+			    	<div id="classify" class="login-rect">
+						<input id="classifyText" readonly="readonly" placeholder="请选择" type="text" value="" required="required">
+					</div>
+				</div>
+				<div class="mui-input-row" style="margin-top: 20px;">
+			    	<div >
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">开始时间</span>
+			    	</div>
+			    	<div id="lanchitem" class="login-rect">
+			    		<input id="startime" data-options='{"type":"datetime"}' readonly="readonly" placeholder="请选择" type="text" value="" required="required">
+					</div>
+				</div>
+				<div class="mui-input-row" style="margin-top: 20px;">
+			    	<div >
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">结束时间</span>
+			    	</div>
+			    	<div id="lanchtime" class="login-rect">
+			    		<input id="endtime" data-options='{"type":"datetime"}' readonly="readonly" placeholder="请选择" type="text" value="" required="required">
+					</div>
+				</div>
+				<div class="mui-input-row" style="margin-top: 20px;">
+			    	<div >
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">地点</span>
+			    	</div>
+			    	<div id="site" class="login-rect">
+						<input id='siteText' type="text" class="mui-input-clear mui-input"  placeholder="请输入文本" required="required" >
+					</div>
+				</div>
+				<div class="mui-input-row" style="margin-top: 20px;">
+			    	<div >
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">组织部门</span>
+			    	</div>
+			    	<div id="section" class="login-rect">
+					    <input id="sectionTextname" readonly="readonly" placeholder="请选择" type="text" value="" required="required">
+			    	</div>
+				</div>
+				<div class="mui-input-row" style="margin-top: 20px;">
+			    	<div>
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">参与人员</span>
+			    	</div>
+			    	<div id="peoplenum" class="login-rect">
+						<input id="joinpeople" readonly="readonly" placeholder="请选择" type="text" value="" required="required">
+				    </div>
+		        </div>
+		        <div class="mui-input-row maincontent" style="margin-top: 20px;">
+			    	<div >
+			    		<i class="title_i">*</i>
+			    		<span class="launch-title">主要内容</span>
+			    	</div>
+			    	<div id="editor-trigger">
+		                <textarea name="" rows="" cols=""  placeholder="请输入...." id="meetingcontent">滚滚滚滚滚改变</textarea>
+		           </div>
+					<div class="meeting-img">图片</div>
+					<div class="imageList" id="imgList">
+						
+						
+					</div>
+					<div class="meeting-materials-one">
+						<span class="materials-title">会议材料</span>
+						<span class="materials-content">请在PC端添加会议材料</span>
+					</div>
+					<div class="meeting-materials-two materialslist"></div>
+		 </div>
+		</form>
+		<div class="btns">
+			<button class="btn" id="submitbtn">提交</button>
+		</div>
+		</div>
+		    <div class="shade" style="display: none;" id="orshade">
+		      <div class="pop-up">
+		    	<div class="popup-top">
+		    		<div class="tishi">
+		    			提示
+		    		</div>
+		    		<div class="del" id="delshade">
+		    		X	
+		    		</div>
+		    	</div>
+		    	<div class="popup-bottom">
+		    		<div class="popup-content">
+		    			信息变更提交后将更新信息并重新发送会议通知。若已有人员签到，则签到信息无效，需要重新签到。是否确认提交变更
+		    		</div>
+		    		<div class="popup-btns">
+		    		<button class="popup-btn popup-btn-one" id="resultno">取消</button>
+		    		<button class="popup-btn popup-btn-two" id="resultok">确定</button>
+		    		</div>
+		    	</div>
+		    </div>	
+		    </div>
+		<!--img-->
+		<div class="imgItem" style="display: none;">
+			<img id="addPicture" src="../../../images/addPic.png">
+		</div>
+		<!--会议材料-->
+	<div class="fujian fujianitem" style="display: none;">
+		<span class="iconfont icon-fujian fujian-style"></span>
+		<span class="dujianname" ></span>
+	</div>
+		
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/mui.picker.min.js"></script>
+<script src="../../../js/common.js"></script>
+<script src="../../../js/mui.zoom.js"></script>
+<script src="../../../js/mui.previewimage.js"></script>
+<script src="../../../js/mui.dtpicker.js"></script>
+<script src="../../../js/wangEditor/js/wangEditor.js"></script>
+<script src="../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../js/mui.pullToRefresh.material.js"></script>
+<script>
+	   //富文本编辑器初始化处理
+    var editor = new window.wangEditor('editor-trigger');
+    editor.create();
+	//环境处理  原生功能调用配置
+	var nativeWebview, imm, InputMethodManager;
+    var initNativeObjects = function() {
+	    if (mui.os.android) {
+	        var main = plus.android.runtimeMainActivity();
+	        var Context = plus.android.importClass("android.content.Context");
+	        InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+	        imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+	    } 
+	    else {
+	        nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+	    }
+	};
+	var showSoftInput = function() {
+	    if (mui.os.android) {
+	        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+	    } 
+	    else {
+	        nativeWebview.plusCallMethod({
+	            "setKeyboardDisplayRequiresUserAction": false
+	        });
+	    }
+	    setTimeout(function() {
+	       //此处可写具体逻辑设置获取焦点的input
+	       $("#content").focus();
+	    }, 300);
+	};
+	
+	//重要全局数据处理
+	var sectionname,//当前会议的组织部门名称
+		peoplesectionid,//当前会议组织部门id
+		selectArr;//选择的人员
+	mui.init();
+	mui.plusReady(function() {
+		var meetid = osg.param("meetid");
+		//调用原生功能
+		initNativeObjects();
+		showSoftInput();
+		//图片模板
+		var imgItem=$(".imgItem");
+		imgItem.css("display","");
+		imgItem.remove();
+		
+		//添加添加图标
+		$("#imgList").append(imgItem.clone());
+		//添加添加图标被点击时上传图片处理
+		addPicture();
+		
+		//渲染数据
+	   osg.ajax("/app/conference/findById",{"conferId":meetid},function(data){
+        	var conference = data.data;
+        	
+        	$("#titleText").val(conference.title);
+        	$("#sectionTextname").val(conference.forbumname);
+        	$("#classifyText").val(conference.meetTypeName);
+        	$("#classifyText").attr("_id",conference.meetType);
+        	$("#siteText").val(conference.address);
+        	$("#startime").val(conference.formatAttendtime);
+        	$("#endtime").val(conference.formatEndTime);
+        	$("#sectionTextname").attr("peoplesectionid",conference.forBumenId);
+			$("#meetingcontent").val(conference.content);
+			selectArr = conference.toConferUser;
+			if (selectArr!=null&&selectArr.length>0) {
+				var okname = selectArr[0].name 
+				joinpeople = okname + "...等"+selectArr.length+"人参加会议！"
+				$("#joinpeople").val($.trim(joinpeople));
+			}
+         if (conference.imageUrls.length==0) {
+         	$(".img-content").text("暂无图片")
+         } else{
+         	$(conference.imageUrls).each(function(index,item){
+         		var item = imgItem.clone();
+         		item.attr("src","");
+         		item.find("#addPicture").attr("src",this);
+				$("#imgList").append('<div class="imgItem yuanimg" ><span class="del"><img src="../../../images/cha.png"></span><img fileId="'+conference.images[index]+'" src="' + this+ '"></div>');
+			})
+         }
+         var fujian = $(".fujianitem")
+         if (conference.fileUrls.length==0) {
+         	$(".materialslist").text("暂无会议材料")
+         } else{
+         	
+         	$(conference.fileUrls).each(function(i, key){
+         		var num = i+1
+         		var item = fujian.clone().css("display","");
+         		item.find(".dujianname").text("附件"+num);
+         		$(item[0]).off("tap").on("tap",function(){
+				mui.toast('请到PC端删除',{ duration:'long', type:'div' })
+					});
+				$(".materialslist").append(item)
+				
+			})
+         }
+        })
+	     
+		//渲染数据
+		//普通示例
+		//分类
+		//分类接口
+		osg.ajax("/app/conference/type/findTypes",{type:1},function(data){
+			var data = data.data,picker=[];
+			  if(data.length>0){
+			  	$(data).each(function(key,value){
+			  		var pickerobject= {};
+			  		pickerobject["value"] = value._id;
+					pickerobject["text"] = value.name;
+					pickerobject["data"] = value;
+					picker.push(pickerobject);
+			  	})
+			  }
+			  selectFun(picker,document.getElementById("classifyText"));
+		})
+		/**
+		 * 分类选择器数据处理
+		 * @param {Object} data
+		 * @param {Object} element
+		 */
+		function selectFun(data,element){
+			var classifyPicker =new mui.PopPicker();  //分类选择器
+			classifyPicker.setData(data);
+			    element.addEventListener('tap', function(event) {
+				classifyPicker.show(function(items) {
+					$(element).val(items[0].text).attr("_id",items[0].value);
+					//返回 false 可以阻止选择框的关闭
+					//return false;
+				});
+			}, false);
+		}
+		//分类接口end
+		//开始时间
+		var startime =document.getElementById("startime");
+		var year=new Date().getFullYear() ;
+        var month=new Date().getMonth()+1;
+		var day=new Date().getDate();
+		var hours=new Date().getHours();
+		var minuters=new Date().getMinutes();
+		var startime =document.getElementById("startime");
+			startime.addEventListener('tap', function() {
+				var _self = this;
+				if(_self.picker) {
+					_self.picker.show(function (rs) {
+						startime.value=rs.text;
+						_self.picker.dispose();
+						_self.picker = null;
+					});
+				} else {
+					var optionsJson = this.getAttribute('data-options') || '{}';
+					var options = JSON.parse(optionsJson);
+					var id = this.getAttribute('id');
+					_self.picker = new mui.DtPicker({
+						"beginYear":year,
+						"beginMonth":month,
+						"beginDay":day,
+						"beginHours":hours,
+						"beginMinutes":minuters,
+
+					});
+					_self.picker.show(function(rs) {
+						startime.value=rs.text;
+						_self.picker.dispose();
+						_self.picker = null;
+					});
+				}
+
+			}, false);
+        //结束时间
+	    	var endtime =document.getElementById("endtime");
+				endtime.addEventListener('tap', function() {
+			    if ($(startime).val()) {
+			    	var startend = startime.value
+					var _self = this;
+					if(_self.picker) {
+						_self.picker.show(function (rs) {
+							endtime.value=rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+					else {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						_self.picker = new mui.DtPicker({
+							  beginDate: new Date(startend),
+						});
+						_self.picker.show(function(rs) {
+							endtime.value=rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+			    	
+			    } 
+			    else{
+					mui.toast('请选择会议开始时间',{ duration:'long', type:'div' })
+	             }
+				} ,false)
+		//组织部门页面跳转处理
+		var section =document.getElementById("section");
+		section.addEventListener('tap', function() {
+       		osg.open("generalBranch.html", "generalBranch.html",{
+       			"peoplesectionid":peoplesectionid,
+       			"sectionname":sectionname,
+       		});
+        })
+		/**
+		 * 监听部门数据返回
+		 */
+		window.addEventListener('toBumen',function(event){
+			if (peoplesectionid != event.detail.peoplesectionid) {
+				//如果当前选择的部门与上一次选择的部门信息不同则清空上一次选择的人员信息
+				joinpeople = null;
+				selectArr = null;
+				$("#joinpeople").val("");
+			}
+			//获得事件参数
+			sectionname = event.detail.sectionname;//获取会议组织部门名称
+			peoplesectionid = event.detail.peoplesectionid;//获取会议组织部门id
+			$("#sectionTextname").val($.trim(sectionname));
+			$("#sectionTextname").attr("peoplesectionid",peoplesectionid);
+		});
+		//选择参与人员监听及逻辑处理
+		var peoplenum =document.getElementById("peoplenum");
+		peoplenum.addEventListener('tap', function() {
+		 	//选择人员
+			var peoplesection =$("#sectionTextname").val();	
+			var peoplesectionid =$("#sectionTextname").attr("peoplesectionid");
+		 	if ($.trim(peoplesection)) {
+		        osg.open("joinpeople.html", "joinpeople.html",{
+			         	peoplesectionid:peoplesectionid,
+			         	peoplesection:peoplesection,
+			         	selectArr:selectArr
+		         	}
+		        );
+	        }
+		 	else{
+		      mui.toast('请选择组织部门',{ duration:'2000', type:'div' }) 
+	        }
+       
+        })
+		//参与人员事件监听及处理 
+	    window.addEventListener('joinpeople',function(event){
+			//获得事件参数
+			joinpeople = event.detail.joinpeople;
+			selectArr = event.detail.selectArr;
+			$("#joinpeople").val($.trim(joinpeople));
+		});
+		//图片上传按钮监听出来
+		function addPicture(){
+			//图片相关事件处理
+			var addPicture = document.getElementById("addPicture");
+			addPicture.addEventListener('tap', function(e) {
+			if(mui.os.plus) {
+				var a = [{　　
+					title: "拍照" //这些都是可以点击的选项的内容
+				}, 
+				{
+					title: "从手机相册选择"
+				}];
+				plus.nativeUI.actionSheet({　　
+					cancel: "取消", 
+					buttons: a
+				}, function(event) { /*actionSheet 按钮点击事件*/ 　　
+					var index = event.index;
+					switch(index) {
+						case 1:
+							if($("#imgList").children().length > 1 && $("#imgList").find("div").eq(1).children().is('video')) { //有图片
+							} 
+							else {
+								// 拍照
+								osg.uploadPictureFromCamera(10, function(url) {
+									$("#imgList").append('<div class="imgItem xinimg" ><span class="del"><img src="../../../images/cha.png"></span><img src="' + url + '"></div>');
+								});
+							}
+							break;
+						case 2:
+							if($("#imgList").children().length > 1 && $("#imgList").find("div").eq(1).children().is('video')) { //有图片
+							} 
+							else {
+								// 选择图片
+								osg.pickFileUpload(10, function(url) {
+									$("#imgList").append('<div class="imgItem xinimg" ><span class="del"><img src="../../../images/cha.png"></span><img src="' + url + '"></div>');
+								
+								});
+							}
+							break;
+					}　　　　　　
+				})
+			}
+			});
+		}
+		$("#imgList").on("tap", ".del", function() {
+			$(this).parent().remove();
+		})
+	    
+        var submitbtn = document.getElementById("submitbtn")
+		var delshade = document.getElementById("delshade")
+		var resultno = document.getElementById("resultno")
+		var resultok = document.getElementById("resultok")
+      	
+		delshade.addEventListener('tap',function(){
+		$("#orshade").css("display","none")	
+		})
+		resultno.addEventListener('tap',function(){
+			$("#orshade").css("display","none")
+		})
+		var pubed = false; 
+	    //发布会议
+		resultok.addEventListener('tap',function(){
+			$("#orshade").css("display","none")
+			if (pubed) {
+		    	osg.toast("请勿重复提交");
+		    	return;
+		    }else{
+		    	pubed=true;
+		    }
+			var postdata=ckdata();
+			if (postdata) {
+				upimages(postdata);
+			}else{
+				pubed=false;
+			}
+	    })
+		//图片上传处理
+		function upimages(postdata){
+			//图片上传
+		    // 文件id
+			//var fileIds = new Array();
+			//var videoCompleted = false;
+			// 要上传的图片
+			var images = new Array();
+			$('#imgList>.xinimg>img').each(function(index, element) {
+				var that = $(element);
+				images.push(that.attr("src"));
+			});
+			// 上传图片
+			var imges=[];
+			//旧图片
+		    $('#imgList>.yuanimg>img').each(function(index, element) {
+				var that = $(element);
+				imges.push(that.attr("fileId"));
+		   	});
+		   	//旧图片end
+			if (images.length>0) {
+				osg.uploadFiles(images, "true", "square", function(imageIds) {
+				    alert(imageIds.toString())
+				    imges =imges.concat(imageIds);
+					postdata.imges=imges.toString();
+					upsert(postdata)
+				});
+			} else{
+				postdata.imges=imges.toString();
+				upsert(postdata)
+			}
+		}
+		
+		//提交当前信息时对需要提交得信息做判断验证
+		function ckdata(){
+		    var title = $("#titleText").val();
+		    var meetType = $("#classifyText").attr("_id");
+		    var meetTypeName =$("#classifyText").val();
+		    var attendtime = $("#startime").val();
+		    var endTime = $("#endtime").val();
+		    var address = $("#siteText").val();
+		    var forbumname = $("#sectionTextname").val();
+		    var forBumenId =$("#sectionTextname").attr("peoplesectionid");
+	//	    var content = new wangEditor('editor-trigger').txt.html();
+	        var content = $('#meetingcontent').val();
+	        var peopleidArr = [];
+		    $(selectArr).each(function(){
+		    	peopleidArr.push(this.id);
+		    })
+		    var userIds  = peopleidArr.toString();
+			if(!$.trim(title)){
+				mui.toast('请填会议标题',{ duration:'long', type:'div' }) 
+				return;
+			}
+			if (!$.trim(meetTypeName)) {
+				mui.toast('请选择会议分类',{ duration:'long', type:'div' }) 
+				return;
+			}
+			if(!$.trim(attendtime)){
+				mui.toast('请选择会议开始时间',{ duration:'long', type:'div' })
+				return;
+			}
+			if(!$.trim(endTime)){
+				mui.toast('请选择会议结束时间',{ duration:'long', type:'div' })
+				return;
+			}
+			if(!$.trim(address)){
+				mui.toast('请填写会议地址',{ duration:'long', type:'div' })
+				return;
+			}
+			if (!$.trim(forbumname)) {
+				mui.toast('请选择会议组织部门',{ duration:'long', type:'div' })
+				return;
+			} 
+			if(peopleidArr.length==0){
+				mui.toast('请选择参与人员',{ duration:'long', type:'div' })	
+				return;
+			}
+			if(!$.trim(content)){
+				mui.toast('请填写会议内容',{ duration:'long', type:'div' })	
+				return;
+			}
+			var postdata={
+			    	title:title,
+			    	meetType:meetType,
+			    	meetTypeName:meetTypeName,
+			    	attendtime:attendtime,
+			    	endTime:endTime,
+			    	address:address,
+			    	forbumname:forbumname,
+			    	forBumenId:forBumenId,
+			    	userIds:userIds,
+			    	content:content,
+			        type:101,
+			        _id:meetid
+			   };
+			return postdata;
+		}
+		//信息验证结束
+		//编辑后的信息推荐
+	    function upsert(postdata){
+	    	pubed=false;
+	    	osg.ajax("/app/conference/upBasic",postdata,function(data){
+	    		var res = JSON.stringify(data.success)
+		    	if (res) {
+		    		 osg.toast('会议信息已变更');
+		    		 osg.closeMe();
+		    	} else{
+		    		mui.toast('发布失败',{ duration:'long', type:'div' })
+		    	}
+		    	pubed = false; 	
+		    })
+	    }
+	//接口
+	})
+	//
+	submitbtn.addEventListener("tap",function(){
+		$("#orshade").css("display","block")
+    });
+    mui('.mui-scroll-wrapper').scroll({
+		indicators: false
+	});
+ 
+</script>
+</body>
+
+</html>
